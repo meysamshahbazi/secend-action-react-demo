@@ -6,28 +6,17 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v6
-      - name: install node 
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-      - name: install deps
-        run: npm ci
-      - name: run test
-        run: npm test
+      - name: build client
+        run: gcc -o client client.c
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v6
-      - name: install node 
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-      - name: install deps
-        run: npm ci
-      - name: build project
-        run: npm run build
+      - name: build server
+        run: gcc -o server server.c
       - name: deploy
         run: echo "Deploying"
 
