@@ -41,8 +41,7 @@ jobs:
         with:
           name: dist-files
           path: |
-            server
-            client
+            build
   deploy:
     needs: build
     runs-on: ubuntu-latest
