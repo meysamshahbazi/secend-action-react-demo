@@ -35,7 +35,7 @@ jobs:
         run: gcc -o build/server server.c
       - name: publish file names
         id: publish
-        run: find ./client -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+        run: find ./build/client -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
       - name: upload artifact
         uses: actions/upload-artifact@v7
         with:
