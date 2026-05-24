@@ -29,7 +29,7 @@ jobs:
           key: b-files-${{ hashFiles('./server.c')}}
       - name: build client
         run: | 
-          mkdir build 
+          mkdir -p build 
           gcc -o build/client client.c
       - name: build server
         run: gcc -o build/server server.c
