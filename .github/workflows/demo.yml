@@ -9,29 +9,27 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v6
-      - name: Install dependencies
-        run: npm ci
-      - name: Lint code
-        run: npm run lint
-      - name: Test code
-        run: npm run test
+      - name: build client
+        run: gcc -o client client.c
+      - name: build server
+        run: gcc -o server server.c
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v6
-      - name: Install dependencies
-        run: npm ci
-      - name: Build website
-        run: npm run build
+      - name: build client
+        run: gcc -o client client.c
+      - name: build server
+        run: gcc -o server server.c
       - name: upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: dist-files
           path: |
-            dist
-            package.json
+            server
+            client
   deploy:
     needs: build
     runs-on: ubuntu-latest
