@@ -22,10 +22,17 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v6
+      - name: cache depends
+        uses: actions/cache@v5
+        with:
+          path: ./build/
+          key: b-files-${{ hashFiles('./server.c')}}
       - name: build client
-        run: gcc -o client client.c
+        run: | 
+          mkdir build 
+          gcc -o build/client client.c
       - name: build server
-        run: gcc -o server server.c
+        run: gcc -o build/server server.c
       - name: publish file names
         id: publish
         run: find ./client -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
