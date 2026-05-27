@@ -35,8 +35,8 @@ jobs:
       - name: Test code
         id: run-tests
         run: mkdir build # act as an error
-      - name: Upload test report
-        if: steps.run-tests.outcome == 'failure'
+      - name: Upload test report 
+        if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v7
         with:
           name: test-report
