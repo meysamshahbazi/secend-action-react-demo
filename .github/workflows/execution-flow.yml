@@ -18,6 +18,10 @@ jobs:
         with:
           path: ./build/
           key: b-files-${{ hashFiles('./server.c')}}
+      - name: dummy install deps
+        if: steps.cache.outputs.cashe-hit != 'true'
+        run: echo "dummy install deps"
+        
 
   test:
     runs-on: ubuntu-latest
