@@ -5,6 +5,7 @@ on:
 			artifact-name:
 				description: the name of artifact
 				required: true
+				type: string
 
 jobs:
   deploy:
