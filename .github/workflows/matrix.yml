@@ -1,0 +1,27 @@
+name: Matrix
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [12,14,16]
+        operating-system: [ubuntu-latest, windows-latest]
+        
+    runs-on: ${{ matrix.operating-system}}
+    steps:
+      - name: get the code
+        uses: actions/checkout@v6
+      - name: install node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: dumy install dep
+        run: echo "dummy install dep"
+      - name: Test code
+        id: run-tests
+        run: mkdir -p build 
+      - name: build server and client
+        run: | 
+          gcc -o build/server server.c
+          gcc -o build/client client.c
+             
