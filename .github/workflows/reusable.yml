@@ -1,9 +1,5 @@
 name: resusle deply
-on: 
-  # workflow_dispatch:
-  push:
-    branches:
-      - master
+on: workflow_call
 jobs:
   deploy:
     runs-on: ubuntu-latest

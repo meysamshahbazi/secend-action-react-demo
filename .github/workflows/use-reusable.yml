@@ -1,0 +1,76 @@
+name:  using reusable workflow
+on:
+  # workflow_dispatch:
+  push:
+    branches:
+      - master
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v6
+      - name: build client
+        run: mkdir -p build
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: ./build/
+          key: b-files-${{ hashFiles('./server.c')}}
+      - name: dummy install deps
+        if: steps.cache.outputs.cashe-hit != 'true'
+        run: echo "dummy install deps"
+        uses: resusle
+        
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: ./build/
+          key: b-files-${{ hashFiles('./server.c')}}
+      - name: Install dependencies
+        run: echo "act as install deps"
+      - name: Test code
+        id: run-tests
+        run: mkdir -p build # act as an error
+      - name: Upload test report 
+        if: failure() && steps.run-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-report
+          path: server.c # act as a fake report!
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: ./build/
+          key: b-files-${{ hashFiles('./server.c')}}
+      - name: Install dependencies
+        run: echo "dummy install deps"
+
+  deploy:
+    needs: build
+    uses: ./.github/workflows/reusable.yml
+
+  report:
+    needs: [lint, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: output info
+        run: |
+          echo "somthing went worng"
+          echo "${{toJson(github)}}"
