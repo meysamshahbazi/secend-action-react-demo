@@ -7,6 +7,11 @@ on:
         required: false
         default: dist
         type: string
+    
+    outputs:
+      results:
+        description: the result of dplmnt opeartion
+        value: ${{ jobs.deploy.result  }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,4 +24,7 @@ jobs:
         run: ls
       - name: output info
         run: echo "deply and uplading"
+      - name: set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
 
