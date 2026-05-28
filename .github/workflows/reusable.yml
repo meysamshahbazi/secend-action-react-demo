@@ -5,12 +5,9 @@ on:
     branches:
       - master
 jobs:
-	deploy:
-		runs-on: ubuntu-latest
-		steps:
-			- name: output info
-			  run: echo "deply and uplading"
-
-
-
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: output info
+        run: echo "deply and uplading"
 
