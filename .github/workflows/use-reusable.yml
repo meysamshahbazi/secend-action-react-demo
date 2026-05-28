@@ -39,7 +39,7 @@ jobs:
         run: echo "act as install deps"
       - name: Test code
         id: run-tests
-        run: mkdir -p build # act as an error
+        run: mkdir  build # act as an error
       - name: Upload test report 
         if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v7
