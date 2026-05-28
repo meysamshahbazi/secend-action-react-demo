@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - master
-
 jobs:
 	deploy:
 		runs-on: ubuntu-latest
-		seteps:
+		steps:
 			- name: output info
 			  run: echo "deply and uplading"
 
