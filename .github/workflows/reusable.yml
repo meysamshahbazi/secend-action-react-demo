@@ -1,0 +1,17 @@
+name: resusle deply
+on: 
+  # workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+	deploy:
+		runs-on: ubuntu-latest
+		seteps:
+			- name: output info
+			  run: echo "deply and uplading"
+
+
+
+

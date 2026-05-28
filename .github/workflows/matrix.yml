@@ -1,5 +1,7 @@
 name: Matrix
-on: push
+on:
+  workflow_dispatch: 
+  # push
 jobs:
   build:
     continue-on-error: true
@@ -13,7 +15,6 @@ jobs:
         exclude:
           - node-version: 12
             operating-system: windows-latest
-            
     runs-on: ${{ matrix.operating-system}}
     steps:
       - name: get the code
