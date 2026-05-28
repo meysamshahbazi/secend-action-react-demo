@@ -11,9 +11,12 @@ on:
     outputs:
       results:
         description: the result of dplmnt opeartion
-        value: ${{ jobs.deploy.result  }}
+        value: ${{ jobs.deploy.outputs.outcome }}
 jobs:
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
+
     runs-on: ubuntu-latest
     steps:
       - name: get code
